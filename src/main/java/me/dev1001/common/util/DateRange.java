@@ -8,27 +8,27 @@ import java.util.Date;
  */
 @Immutable
 public class DateRange {
-  private final long from;
-  private final long to;
+  private final long fromMillis;
+  private final long toMillis;
 
   public DateRange(Date from, Date to) {
-    this.from = from.getTime();
-    this.to = to.getTime();
-    if (this.to < this.from) {
+    this.fromMillis = from.getTime();
+    this.toMillis = to.getTime();
+    if (this.toMillis < this.fromMillis) {
       throw new IllegalArgumentException("Invalid date range");
     }
   }
 
   public Date getFrom() {
-    return new Date(from);
+    return new Date(fromMillis);
   }
 
   public Date getTo() {
-    return new Date(to);
+    return new Date(toMillis);
   }
 
   public boolean inRange(Date date) {
     long millis = date.getTime();
-    return millis >= from && millis <= to;
+    return millis >= fromMillis && millis <= toMillis;
   }
 }
